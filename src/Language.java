@@ -1,9 +1,9 @@
 public class Language {
     private String name;
     private String proficiency; // e.g., Beginner, Intermediate, Fluent
-    private Certificate proofCertificate; // Link to Certificate
+    private Certification proofCertificate; // Link to Certificate
 
-    public Language(String name, String proficiency, Certificate proofCertificate) {
+    public Language(String name, String proficiency, Certification proofCertificate) {
         this.name = name;
         this.proficiency = proficiency;
         this.proofCertificate = proofCertificate;
@@ -15,7 +15,7 @@ public class Language {
     public String getProficiency() {
         return proficiency; }
 
-    public Certificate getProofCertificate() {
+    public Certification getProofCertificate() {
         return proofCertificate; }
 
     @Override

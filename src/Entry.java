@@ -14,6 +14,14 @@ public class Entry {
         this.relatedSkills = new ArrayList<>();
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public void addSkill(String skill) {
         relatedSkills.add(skill);
     }
