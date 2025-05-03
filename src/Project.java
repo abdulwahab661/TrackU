@@ -17,28 +17,7 @@ public class Project {
         this.role = role;
         this.link = link;
     }
-    public static Project inputProject(Scanner sc) {
-        System.out.println("Enter project details:");
-        System.out.print("Title: ");
-        String title = sc.nextLine();
 
-        System.out.print("Description: ");
-        String description = sc.nextLine();
-
-        System.out.print("Technologies Used: ");
-        String technologies = sc.nextLine();
-
-        System.out.print("Duration: ");
-        String duration = sc.nextLine();
-
-        System.out.print("Role: ");
-        String role = sc.nextLine();
-
-        System.out.print("Link (optional): ");
-        String link = sc.nextLine();
-
-        return new Project(title, description, technologies, duration, role, link);
-    }
     @Override
     public String toString() {
         return "\nProject Title: " + title +

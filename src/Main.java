@@ -25,8 +25,8 @@ public class Main {
             System.out.println("6. Add Soft Skill");
             System.out.println("7. Add Achievement");
             System.out.println("8. Add Reference");
-            System.out.println("9. Display All Entries");
-            System.out.println("10. Add Project");
+            System.out.println("9. Add Project");
+            System.out.println("10. Display all Entries");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = Integer.parseInt(sc.nextLine());
