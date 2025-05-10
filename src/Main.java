@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        GeneralInfo generalInfo = null;
         List<Language> languages = new ArrayList<>();
         List<SoftSkill> softSkills = new ArrayList<>();
         List<Certification> certificates = new ArrayList<>();
@@ -26,7 +27,8 @@ public class Main {
             System.out.println("7. Add Achievement");
             System.out.println("8. Add Reference");
             System.out.println("9. Add Project");
-            System.out.println("10. Display all Entries");
+            System.out.println("10. Add General Info");
+            System.out.println("11. Display all Entries");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = Integer.parseInt(sc.nextLine());
@@ -41,7 +43,15 @@ public class Main {
                 case 7 -> achievements.add(InputHelper.inputAchievement(sc));
                 case 8 -> references.add(InputHelper.inputReference(sc));
                 case 9 -> projects.add(InputHelper.inputProject(sc));
-                case 10 -> {
+                case 10 -> generalInfo = InputHelper.inputGeneralInfo(sc);
+                case 11 -> {
+                    System.out.println("\n=== GENERAL INFORMATION ===");
+                    if (generalInfo != null) {
+                        System.out.println(generalInfo);
+                    } else {
+                        System.out.println("No general info provided.");
+                    }
+
                     System.out.println("\n=== EDUCATION ===");
                     for (Education education : educationList) {
                         System.out.println(education);

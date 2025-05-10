@@ -161,4 +161,93 @@ public class InputHelper {
         System.out.println("\n--- Added Project Details Successfully! --- \n");
         return new Project(title, description, technologies, duration, role, link);
     }
+    public static GeneralInfo inputGeneralInfo(Scanner sc) {
+        System.out.println("\n--- Add General Info ---");
+        String name = promptNonEmpty(sc, "Full Name: ");
+        String email = promptNonEmpty(sc, "Email: ");
+        String phoneNumber = promptNonEmpty(sc, "Phone Number: ");
+        String address = promptNonEmpty(sc, "Address: ");
+        System.out.print("LinkedIn (optional): ");
+        String linkedIn = sc.nextLine().trim();
+        System.out.print("GitHub (optional): ");
+        String github = sc.nextLine().trim();
+        System.out.print("Website (optional): ");
+        String website = sc.nextLine().trim();
+        System.out.println("\n--- Added General Info Successfully! ---\n");
+        return new GeneralInfo(name, email, phoneNumber, address, linkedIn, github,website);
+    }
+    public static Person inputPerson(Scanner sc) {
+        // Input general information
+        GeneralInfo generalInfo = inputGeneralInfo(sc);
+
+        // Input education list
+        List<Education> educationList = new ArrayList<>();
+        while (promptBoolean(sc, "Add another education?")) {
+            educationList.add(inputEducation(sc));
+        }
+
+        // Input certifications list
+        List<Certification> certificates = new ArrayList<>();
+        while (promptBoolean(sc, "Add another certification?")) {
+            certificates.add(inputCertificate(sc));
+        }
+
+        // Input internships list
+        List<Internship> internships = new ArrayList<>();
+        while (promptBoolean(sc, "Add another internship?")) {
+            internships.add(inputInternship(sc));
+        }
+
+        // Input jobs list
+        List<Job> jobs = new ArrayList<>();
+        while (promptBoolean(sc, "Add another job?")) {
+            jobs.add(inputJob(sc));
+        }
+
+        // Input languages list
+        List<Language> languages = new ArrayList<>();
+        while (promptBoolean(sc, "Add another language?")) {
+            languages.add(inputLanguage(sc, certificates));
+        }
+
+        // Input soft skills list
+        List<SoftSkill> softSkills = new ArrayList<>();
+        while (promptBoolean(sc, "Add another soft skill?")) {
+            softSkills.add(inputSoftSkill(sc));
+        }
+
+        // Input achievements list
+        List<Achievement> achievements = new ArrayList<>();
+        while (promptBoolean(sc, "Add another achievement?")) {
+            achievements.add(inputAchievement(sc));
+        }
+
+        // Input references list
+        List<Reference> references = new ArrayList<>();
+        while (promptBoolean(sc, "Add another reference?")) {
+            references.add(inputReference(sc));
+        }
+
+        // Input projects list
+        List<Project> projects = new ArrayList<>();
+        while (promptBoolean(sc, "Add another project?")) {
+            projects.add(inputProject(sc));
+        }
+
+        // Create the Person object
+        Person person = new Person();
+        person.setGeneralInfo(generalInfo);
+        person.getEducationList().addAll(educationList);
+        person.getCertificates().addAll(certificates);
+        person.getInternships().addAll(internships);
+        person.getJobs().addAll(jobs);
+        person.getLanguages().addAll(languages);
+        person.getSoftSkills().addAll(softSkills);
+        person.getAchievements().addAll(achievements);
+        person.getReferences().addAll(references);
+        person.getProjects().addAll(projects);
+
+        // Return the constructed Person object
+        return person;
+    }
 }
