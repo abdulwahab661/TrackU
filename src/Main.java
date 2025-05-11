@@ -3,17 +3,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        GeneralInfo generalInfo = null;
-        List<Language> languages = new ArrayList<>();
-        List<SoftSkill> softSkills = new ArrayList<>();
-        List<Certification> certificates = new ArrayList<>();
-        List<Education> educationList = new ArrayList<>();
-        List<Internship> internships = new ArrayList<>();
-        List<Job> jobs = new ArrayList<>();
-        List<Achievement> achievements = new ArrayList<>();
-        List<Reference> references = new ArrayList<>();
-        List<Project> projects = new ArrayList<>();
+        Resume resume = new Resume();
 
         int choice;
         do {
@@ -35,23 +25,18 @@ public class Main {
             choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
-                case 1 -> generalInfo = InputHelper.inputGeneralInfo(sc);
-                case 2 -> educationList.add(InputHelper.inputEducation(sc));
-                case 3 -> certificates.add(InputHelper.inputCertificate(sc));
-                case 4 -> internships.add(InputHelper.inputInternship(sc));
-                case 5 -> jobs.add(InputHelper.inputJob(sc));
-                case 6 -> languages.add(InputHelper.inputLanguage(sc, certificates));
-                case 7 -> softSkills.add(InputHelper.inputSoftSkill(sc));
-                case 8 -> achievements.add(InputHelper.inputAchievement(sc));
-                case 9 -> references.add(InputHelper.inputReference(sc));
-                case 10 -> projects.add(InputHelper.inputProject(sc));
-                case 11 -> DisplayAll.displayAllEntries(
-                        generalInfo, educationList, certificates,
-                        internships, jobs, languages, softSkills,
-                        achievements, references,projects);
-                case 12 -> Resume.buildResume(sc, generalInfo, educationList, certificates,
-                        internships, jobs, languages, softSkills,
-                        achievements, references, projects);
+                case 1 -> resume.setGeneralInfo(InputHelper.inputGeneralInfo(sc));
+                case 2 -> resume.addEducation(InputHelper.inputEducation(sc));
+                case 3 -> resume.addCertificate(InputHelper.inputCertificate(sc));
+                case 4 -> resume.addInternship(InputHelper.inputInternship(sc));
+                case 5 -> resume.addJob(InputHelper.inputJob(sc));
+                case 6 -> resume.addLanguage(InputHelper.inputLanguage(sc, new ArrayList<>()));
+                case 7 -> resume.addSoftSkill(InputHelper.inputSoftSkill(sc));
+                case 8 -> resume.addAchievement(InputHelper.inputAchievement(sc));
+                case 9 -> resume.addReference(InputHelper.inputReference(sc));
+                case 10 -> resume.addProject(InputHelper.inputProject(sc));
+               // case 11 -> resume.displayAll();
+                case 12 -> resume.displayInteractiveResume(sc);
                 case 0 -> System.out.println("Exiting... Goodbye!");
                 default -> System.out.println("Invalid option. Try again.");
             }

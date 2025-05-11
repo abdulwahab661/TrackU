@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,6 +12,18 @@ public class InputHelper {
                 System.out.println("This field cannot be empty. Please try again.");
             }
         } while (input.isEmpty());
+        return input;
+    }
+
+    private static String promptValidated(Scanner sc, String prompt, String regex, String errorMsg) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = sc.nextLine().trim();
+            if (!input.matches(regex)) {
+                System.out.println(errorMsg);
+            }
+        } while (!input.matches(regex));
         return input;
     }
 
@@ -42,16 +53,15 @@ public class InputHelper {
             System.out.println("Invalid input. Please enter 'yes' or 'no'.");
         }
     }
-
     public static Education inputEducation(Scanner sc) {
         System.out.println("\n--- Add Education ---");
         String title = promptNonEmpty(sc, "Degree Title: ");
         String description = promptNonEmpty(sc, "Degree Description: ");
-        String date = promptNonEmpty(sc, "Date (e.g., 2020-2024): ");
+        String date = promptValidated(sc, "Date (e.g., 2020-2024): ", "^\\d{4}-\\d{4}$", "Invalid date format. Use YYYY-YYYY.");
         String institution = promptNonEmpty(sc, "Institution: ");
         String major = promptNonEmpty(sc, "Major: ");
         String location = promptNonEmpty(sc, "Location: ");
-        String gpa = promptNonEmpty(sc, "GPA: ");
+        String gpa = promptValidated(sc, "GPA: ", "^(?:[0-3](?:\\.\\d{1,2})?|4(?:\\.0{1,2})?)$", "Enter valid GPA (0.00 - 4.00)");
         String honors = promptNonEmpty(sc, "Honors (or type 'None'): ");
         System.out.println("--- Added Education Details Successfully! --- \n");
         return new Education(title, description, date, institution, major, location, gpa, honors);
@@ -61,10 +71,10 @@ public class InputHelper {
         System.out.println("\n--- Add Certificate ---");
         String title = promptNonEmpty(sc, "Title: ");
         String description = promptNonEmpty(sc, "Description: ");
-        String date = promptNonEmpty(sc, "Date (e.g., Jan 2024): ");
+        String date = promptValidated(sc, "Date (e.g., Jan 2024): ", "^\\w{3,9} \\d{4}$", "Invalid date format. Use 'Jan 2024'.");
         String issuer = promptNonEmpty(sc, "Issuer: ");
         String certificateId = promptNonEmpty(sc, "Certificate ID: ");
-        String certificateURL = promptNonEmpty(sc, "Certificate URL: ");
+        String certificateURL = promptValidated(sc, "Certificate URL: ", "^(https?|ftp)://[^\s/$.?#].[^\s]*$", "Invalid URL format.");
         String validityPeriod = promptNonEmpty(sc, "Validity Period: ");
         String level = promptNonEmpty(sc, "Level: ");
         System.out.println("\n--- Added Certification Details Successfully! --- \n");
@@ -161,11 +171,12 @@ public class InputHelper {
         System.out.println("\n--- Added Project Details Successfully! --- \n");
         return new Project(title, description, technologies, duration, role, link);
     }
+
     public static GeneralInfo inputGeneralInfo(Scanner sc) {
         System.out.println("\n--- Add General Info ---");
         String name = promptNonEmpty(sc, "Full Name: ");
-        String email = promptNonEmpty(sc, "Email: ");
-        String phoneNumber = promptNonEmpty(sc, "Phone Number: ");
+        String email = promptValidated(sc, "Email: ", "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", "Invalid email format.");
+        String phoneNumber = promptValidated(sc, "Phone Number (e.g., xxxx-xxxxxxx): ", "^\\d{4}-\\d{7}$", "Invalid phone number format.");
         String address = promptNonEmpty(sc, "Address: ");
         System.out.print("LinkedIn (optional): ");
         String linkedIn = sc.nextLine().trim();
@@ -174,80 +185,6 @@ public class InputHelper {
         System.out.print("Website (optional): ");
         String website = sc.nextLine().trim();
         System.out.println("\n--- Added General Info Successfully! ---\n");
-        return new GeneralInfo(name, email, phoneNumber, address, linkedIn, github,website);
-    }
-    public static Person inputPerson(Scanner sc) {
-        // Input general information
-        GeneralInfo generalInfo = inputGeneralInfo(sc);
-
-        // Input education list
-        List<Education> educationList = new ArrayList<>();
-        while (promptBoolean(sc, "Add another education?")) {
-            educationList.add(inputEducation(sc));
-        }
-
-        // Input certifications list
-        List<Certification> certificates = new ArrayList<>();
-        while (promptBoolean(sc, "Add another certification?")) {
-            certificates.add(inputCertificate(sc));
-        }
-
-        // Input internships list
-        List<Internship> internships = new ArrayList<>();
-        while (promptBoolean(sc, "Add another internship?")) {
-            internships.add(inputInternship(sc));
-        }
-
-        // Input jobs list
-        List<Job> jobs = new ArrayList<>();
-        while (promptBoolean(sc, "Add another job?")) {
-            jobs.add(inputJob(sc));
-        }
-
-        // Input languages list
-        List<Language> languages = new ArrayList<>();
-        while (promptBoolean(sc, "Add another language?")) {
-            languages.add(inputLanguage(sc, certificates));
-        }
-
-        // Input soft skills list
-        List<SoftSkill> softSkills = new ArrayList<>();
-        while (promptBoolean(sc, "Add another soft skill?")) {
-            softSkills.add(inputSoftSkill(sc));
-        }
-
-        // Input achievements list
-        List<Achievement> achievements = new ArrayList<>();
-        while (promptBoolean(sc, "Add another achievement?")) {
-            achievements.add(inputAchievement(sc));
-        }
-
-        // Input references list
-        List<Reference> references = new ArrayList<>();
-        while (promptBoolean(sc, "Add another reference?")) {
-            references.add(inputReference(sc));
-        }
-
-        // Input projects list
-        List<Project> projects = new ArrayList<>();
-        while (promptBoolean(sc, "Add another project?")) {
-            projects.add(inputProject(sc));
-        }
-
-        // Create the Person object
-        Person person = new Person();
-        person.setGeneralInfo(generalInfo);
-        person.getEducationList().addAll(educationList);
-        person.getCertificates().addAll(certificates);
-        person.getInternships().addAll(internships);
-        person.getJobs().addAll(jobs);
-        person.getLanguages().addAll(languages);
-        person.getSoftSkills().addAll(softSkills);
-        person.getAchievements().addAll(achievements);
-        person.getReferences().addAll(references);
-        person.getProjects().addAll(projects);
-
-        // Return the constructed Person object
-        return person;
+        return new GeneralInfo(name, email, phoneNumber, address, linkedIn, github, website);
     }
 }

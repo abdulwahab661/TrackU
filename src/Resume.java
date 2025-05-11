@@ -12,7 +12,6 @@ public class Resume {
     private List<Reference> references = new ArrayList<>();
     private List<Project> projects = new ArrayList<>();
 
-    // Setters/Adders
     public void setGeneralInfo(GeneralInfo info) {
         this.generalInfo = info;
     }
@@ -53,26 +52,8 @@ public class Resume {
         projects.add(p);
     }
 
-    // Display all entries
-    public void displayAll() {
-        System.out.println("\n=== GENERAL INFORMATION ===");
-        System.out.println(generalInfo != null ? generalInfo : "No general info provided.");
-
-        printSection("EDUCATION", educationList);
-        printSection("CERTIFICATES", certificates);
-        printSection("INTERNSHIPS", internships);
-        printSection("JOBS", jobs);
-        printSection("LANGUAGES", languages);
-        printSection("SOFT SKILLS", softSkills);
-        printSection("ACHIEVEMENTS", achievements);
-        printSection("REFERENCES", references);
-        printSection("PROJECTS", projects);
-    }
-
-    // Interactive Resume Builder
     public void displayInteractiveResume(Scanner sc) {
         System.out.println("\n=== RESUME ===");
-
         System.out.println("\n--- GENERAL INFORMATION ---");
         System.out.println(generalInfo != null ? generalInfo : "Not provided");
 
@@ -100,51 +81,106 @@ public class Resume {
             selectedItems.add(new ArrayList<>());
         }
 
-        int index = 0;
-        while (index >= 0 && index < categories.length) {
-            String category = categories[index];
-            List<?> entries = dataLists[index];
+        while (true) {
+            System.out.println("\n==== RESUME BUILDER MENU ====");
+            for (int i = 0; i < categories.length; i++) {
+                System.out.printf("%d. %s\n", (i + 1), categories[i]);
+            }
+            System.out.println((categories.length + 1) + ". Finish and Display Resume");
+            System.out.print("Enter your choice: ");
+            String choice = sc.nextLine().trim();
 
-            System.out.println("\n--- SELECT FROM: " + category + " ---");
-            if (entries.isEmpty()) {
-                System.out.println("No entries available.");
-            } else {
-                for (int i = 0; i < entries.size(); i++) {
-                    String preview = entries.get(i).toString().split("\n")[0];
-                    System.out.println((i + 1) + ". " + preview);
+            int index = -1;
+            try {
+                int num = Integer.parseInt(choice);
+                if (num == categories.length + 1) break;
+                if (num >= 1 && num <= categories.length) {
+                    index = num - 1;
+                } else {
+                    System.out.println("Invalid menu choice.");
+                    continue;
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
             }
 
-            System.out.println("Enter numbers to include, '>' for next, '<' for previous, '#' to finish:");
-            String input = sc.nextLine().trim();
+            List<?> entries = dataLists[index];
+            List<Object> selected = selectedItems.get(index);
 
-            if (input.equals("#")) break;
-            else if (input.equals(">")) index++;
-            else if (input.equals("<")) index--;
-            else {
+            while (true) {
+                System.out.println("\n--- " + categories[index].toUpperCase() + " ---");
+                if (entries.isEmpty()) {
+                    System.out.println("No entries available.");
+                    break;
+                }
+
+                System.out.println("Available:");
+                for (int i = 0; i < entries.size(); i++) {
+                    String preview = entries.get(i).toString().split("\n")[0];
+                    System.out.printf("%d. %s\n", (i + 1), preview);
+                }
+
+                System.out.println("\nSelected:");
+                for (int i = 0; i < selected.size(); i++) {
+                    System.out.printf("%d. %s\n", (i + 1), selected.get(i).toString().split("\n")[0]);
+                }
+
+                System.out.println("\nType numbers to include (e.g., 1,2), -n to remove (e.g., -1), or M to return to main menu:");
+                String input = sc.nextLine().trim();
+                if (input.equalsIgnoreCase("M")) break;
+
                 String[] parts = input.split("[,\\s]+");
-                List<Object> selected = new ArrayList<>();
                 for (String part : parts) {
                     try {
-                        int i = Integer.parseInt(part) - 1;
-                        if (i >= 0 && i < entries.size()) {
-                            selected.add(entries.get(i));
+                        if (part.startsWith("-")) {
+                            int removeIndex = Integer.parseInt(part.substring(1)) - 1;
+                            if (removeIndex >= 0 && removeIndex < selected.size()) {
+                                Object removed = selected.remove(removeIndex);
+                                System.out.println("Removed: " + removed);
+                            } else {
+                                System.out.println("Invalid selected index to remove.");
+                            }
                         } else {
-                            System.out.println("Invalid index: " + (i + 1));
+                            int addIndex = Integer.parseInt(part) - 1;
+                            if (addIndex >= 0 && addIndex < entries.size()) {
+                                Object toAdd = entries.get(addIndex);
+                                if (!selected.contains(toAdd)) {
+                                    selected.add(toAdd);
+                                    System.out.println("Added: " + toAdd);
+                                } else {
+                                    System.out.println("Already selected: " + toAdd);
+                                }
+                            } else {
+                                System.out.println("Invalid index to add.");
+                            }
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid input: " + part);
                     }
                 }
-                selectedItems.set(index, selected);
             }
         }
 
-        // Display selected items
+        // Display final resume
+        System.out.println("\n=== FINAL RESUME ===");
+
+        System.out.println("\n=== GENERAL INFORMATION ===");
+        System.out.println(generalInfo != null ? generalInfo : "No general info provided.");
+
+        System.out.println("\n=== EDUCATION ===");
+        if (educationList.isEmpty()) {
+            System.out.println("No education provided.");
+        } else {
+            for (Education e : educationList) {
+                System.out.println(e);
+            }
+        }
+
         for (int i = 0; i < categories.length; i++) {
             List<Object> selected = selectedItems.get(i);
             if (!selected.isEmpty()) {
-                System.out.println("\n--- " + categories[i].toUpperCase() + " ---");
+                System.out.println("\n=== " + categories[i].toUpperCase() + " ===");
                 for (Object o : selected) {
                     System.out.println(o);
                 }
