@@ -17,39 +17,40 @@ public class Resume {
         this.generalInfo = info;
     }
 
-    public void addEducation(Education e) { educationList.add(e); }
-    public void addCertificate(Certification c) { certificates.add(c); }
-    public void addInternship(Internship i) { internships.add(i); }
-    public void addJob(Job j) { jobs.add(j); }
-    public void addLanguage(Language l) { languages.add(l); }
-    public void addSoftSkill(SoftSkill s) { softSkills.add(s); }
-    public void addAchievement(Achievement a) { achievements.add(a); }
-    public void addReference(Reference r) { references.add(r); }
-    public void addProject(Project p) { projects.add(p); }
+    public void addEducation(Education e) {
+        educationList.add(e);
+    }
 
-    // Build resume from external data
-    public void buildResume(
-            GeneralInfo generalInfo,
-            List<Education> educationList,
-            List<Certification> certificates,
-            List<Internship> internships,
-            List<Job> jobs,
-            List<Language> languages,
-            List<SoftSkill> softSkills,
-            List<Achievement> achievements,
-            List<Reference> references,
-            List<Project> projects
-    ) {
-        this.generalInfo = generalInfo;
-        this.educationList.addAll(educationList);
-        this.certificates.addAll(certificates);
-        this.internships.addAll(internships);
-        this.jobs.addAll(jobs);
-        this.languages.addAll(languages);
-        this.softSkills.addAll(softSkills);
-        this.achievements.addAll(achievements);
-        this.references.addAll(references);
-        this.projects.addAll(projects);
+    public void addCertificate(Certification c) {
+        certificates.add(c);
+    }
+
+    public void addInternship(Internship i) {
+        internships.add(i);
+    }
+
+    public void addJob(Job j) {
+        jobs.add(j);
+    }
+
+    public void addLanguage(Language l) {
+        languages.add(l);
+    }
+
+    public void addSoftSkill(SoftSkill s) {
+        softSkills.add(s);
+    }
+
+    public void addAchievement(Achievement a) {
+        achievements.add(a);
+    }
+
+    public void addReference(Reference r) {
+        references.add(r);
+    }
+
+    public void addProject(Project p) {
+        projects.add(p);
     }
 
     // Display all entries
@@ -68,22 +69,10 @@ public class Resume {
         printSection("PROJECTS", projects);
     }
 
-    private <T> void printSection(String title, List<T> list) {
-        System.out.println("\n=== " + title + " ===");
-        if (list.isEmpty()) {
-            System.out.println("No " + title.toLowerCase() + " provided.");
-        } else {
-            for (T item : list) {
-                System.out.println(item);
-            }
-        }
-    }
-
-    // Display interactive resume
+    // Interactive Resume Builder
     public void displayInteractiveResume(Scanner sc) {
         System.out.println("\n=== RESUME ===");
 
-        // Always show General Info and Education
         System.out.println("\n--- GENERAL INFORMATION ---");
         System.out.println(generalInfo != null ? generalInfo : "Not provided");
 
@@ -96,30 +85,33 @@ public class Resume {
             }
         }
 
-        // Interactive selection for other sections
-        List<String> categories = List.of(
+        String[] categories = {
                 "Certificates", "Internships", "Jobs", "Languages",
                 "Soft Skills", "Achievements", "References", "Projects"
-        );
+        };
 
-        List<List<?>> dataLists = List.of(
+        List<?>[] dataLists = new List<?>[]{
                 certificates, internships, jobs, languages,
                 softSkills, achievements, references, projects
-        );
+        };
 
-        Map<String, List<Object>> selectedEntries = new LinkedHashMap<>();
+        List<List<Object>> selectedItems = new ArrayList<>();
+        for (int i = 0; i < categories.length; i++) {
+            selectedItems.add(new ArrayList<>());
+        }
 
         int index = 0;
-        while (index >= 0 && index < categories.size()) {
-            String category = categories.get(index);
-            List<?> entries = dataLists.get(index);
+        while (index >= 0 && index < categories.length) {
+            String category = categories[index];
+            List<?> entries = dataLists[index];
 
             System.out.println("\n--- SELECT FROM: " + category + " ---");
             if (entries.isEmpty()) {
                 System.out.println("No entries available.");
             } else {
                 for (int i = 0; i < entries.size(); i++) {
-                    System.out.println((i + 1) + ". " + entries.get(i).toString().split("\n")[0]);
+                    String preview = entries.get(i).toString().split("\n")[0];
+                    System.out.println((i + 1) + ". " + preview);
                 }
             }
 
@@ -144,15 +136,29 @@ public class Resume {
                         System.out.println("Invalid input: " + part);
                     }
                 }
-                selectedEntries.put(category, selected);
+                selectedItems.set(index, selected);
             }
         }
 
-        // Display selected sections
-        for (var entry : selectedEntries.entrySet()) {
-            System.out.println("\n--- " + entry.getKey().toUpperCase() + " ---");
-            for (Object obj : entry.getValue()) {
-                System.out.println(obj);
+        // Display selected items
+        for (int i = 0; i < categories.length; i++) {
+            List<Object> selected = selectedItems.get(i);
+            if (!selected.isEmpty()) {
+                System.out.println("\n--- " + categories[i].toUpperCase() + " ---");
+                for (Object o : selected) {
+                    System.out.println(o);
+                }
+            }
+        }
+    }
+
+    private <T> void printSection(String title, List<T> list) {
+        System.out.println("\n=== " + title + " ===");
+        if (list.isEmpty()) {
+            System.out.println("No " + title.toLowerCase() + " provided.");
+        } else {
+            for (T item : list) {
+                System.out.println(item);
             }
         }
     }
