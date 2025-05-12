@@ -71,7 +71,7 @@ public class Resume {
                 "Soft Skills", "Achievements", "References", "Projects"
         };
 
-        List<?>[] dataLists = new List<?>[]{
+        List[] dataLists = new List[]{
                 certificates, internships, jobs, languages,
                 softSkills, achievements, references, projects
         };
@@ -117,13 +117,12 @@ public class Resume {
 
                 System.out.println("Available:");
                 for (int i = 0; i < entries.size(); i++) {
-                    String preview = entries.get(i).toString().split("\n")[0];
-                    System.out.printf("%d. %s\n", (i + 1), preview);
+                    System.out.printf("%d.%s\n", (i + 1), entries.get(i).toString());
                 }
 
                 System.out.println("\nSelected:");
                 for (int i = 0; i < selected.size(); i++) {
-                    System.out.printf("%d. %s\n", (i + 1), selected.get(i).toString().split("\n")[0]);
+                    System.out.printf("%d.%s\n", (i + 1), selected.get(i).toString());
                 }
 
                 System.out.println("\nType numbers to include (e.g., 1,2), -n to remove (e.g., -1), or M to return to main menu:");
