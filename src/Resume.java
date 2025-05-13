@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.*;
 
 public class Resume {
@@ -14,6 +16,46 @@ public class Resume {
 
     public void setGeneralInfo(GeneralInfo info) {
         this.generalInfo = info;
+    }
+
+    public GeneralInfo getGeneralInfo() {
+        return generalInfo;
+    }
+
+    public List<Education> getEducationList() {
+        return educationList;
+    }
+
+    public List<Certification> getCertificates() {
+        return certificates;
+    }
+
+    public List<Internship> getInternships() {
+        return internships;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public List<SoftSkill> getSoftSkills() {
+        return softSkills;
+    }
+
+    public List<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public List<Reference> getReferences() {
+        return references;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
     }
 
     public void addEducation(Education e) {
@@ -185,6 +227,65 @@ public class Resume {
                 }
             }
         }
+    }
+
+    // Method for Printing (File Handling)
+
+    public void exportFinalResumeToFile(String filename) {
+        StringBuilder resumeContent = new StringBuilder();
+
+        resumeContent.append("===========================================\n");
+        resumeContent.append("                FINAL RESUME               \n");
+        resumeContent.append("===========================================\n\n");
+
+        resumeContent.append("GENERAL INFORMATION:\n");
+        resumeContent.append(generalInfo != null ? generalInfo.toString() : "  Not provided").append("\n\n");
+
+        appendFormattedSection(resumeContent, "EDUCATION", educationList);
+        appendFormattedSection(resumeContent, "CERTIFICATIONS", certificates);
+        appendFormattedSection(resumeContent, "INTERNSHIPS", internships);
+        appendFormattedSection(resumeContent, "JOBS", jobs);
+        appendFormattedSection(resumeContent, "LANGUAGES", languages);
+        appendFormattedSection(resumeContent, "SOFT SKILLS", softSkills);
+        appendFormattedSection(resumeContent, "ACHIEVEMENTS", achievements);
+        appendFormattedSection(resumeContent, "REFERENCES", references);
+        appendFormattedSection(resumeContent, "PROJECTS", projects);
+
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write(resumeContent.toString());
+            System.out.println("Resume successfully exported to: " + filename);
+        } catch (IOException e) {
+            System.out.println("Error writing resume: " + e.getMessage());
+        }
+    }
+
+    private <T> void appendFormattedSection(StringBuilder sb, String title, List<T> items) {
+        sb.append(title).append(":\n");
+        if (items.isEmpty()) {
+            sb.append("  None listed.\n\n");
+        } else {
+            for (T item : items) {
+                sb.append("  • ").append(item.toString()).append("\n");
+            }
+            sb.append("\n");
+        }
+    }
+
+    public void displayAll() {
+        System.out.println("\n=== FINAL RESUME (All Entries Included) ===");
+
+        System.out.println("\n=== GENERAL INFORMATION ===");
+        System.out.println(generalInfo != null ? generalInfo : "No general info provided.");
+
+        printSection("EDUCATION", educationList);
+        printSection("CERTIFICATES", certificates);
+        printSection("INTERNSHIPS", internships);
+        printSection("JOBS", jobs);
+        printSection("LANGUAGES", languages);
+        printSection("SOFT SKILLS", softSkills);
+        printSection("ACHIEVEMENTS", achievements);
+        printSection("REFERENCES", references);
+        printSection("PROJECTS", projects);
     }
 
     private <T> void printSection(String title, List<T> list) {

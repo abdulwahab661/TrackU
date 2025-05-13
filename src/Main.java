@@ -20,9 +20,11 @@ public class Main {
             System.out.println("10. Add Project");
             System.out.println("11. Display All Entries");
             System.out.println("12. Build Resume");
+            System.out.println("13. Print Resume");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = Integer.parseInt(sc.nextLine());
+
 
             switch (choice) {
                 case 1 -> resume.setGeneralInfo(InputHelper.inputGeneralInfo(sc));
@@ -35,8 +37,9 @@ public class Main {
                 case 8 -> resume.addAchievement(InputHelper.inputAchievement(sc));
                 case 9 -> resume.addReference(InputHelper.inputReference(sc));
                 case 10 -> resume.addProject(InputHelper.inputProject(sc));
-               // case 11 -> resume.displayAll();
+                case 11 -> resume.displayAll();
                 case 12 -> resume.displayInteractiveResume(sc);
+                case 13 -> resume.exportFinalResumeToFile("My Resume.txt");
                 case 0 -> System.out.println("Exiting... Goodbye!");
                 default -> System.out.println("Invalid option. Try again.");
             }
