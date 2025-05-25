@@ -15,7 +15,7 @@ public class Person {
     // Constructor
     public Person() {}
 
-    // Getters and Setters for each field (you can generate these or write manually)
+    // Getters and Setters for each field
 
     public GeneralInfo getGeneralInfo() {
         return generalInfo;

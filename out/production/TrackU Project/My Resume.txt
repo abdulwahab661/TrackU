@@ -1,0 +1,93 @@
+===========================================
+                FINAL RESUME               
+===========================================
+
+GENERAL INFORMATION:
+Name: Abdul Wahab
+Email: a.wahab@gmail.com
+Phone: 0300-4511456
+Address: House #1
+LinkedIn: exapmle
+GitHub: github
+Website: website
+
+
+EDUCATION:
+  • Computer Science - CS (2024-2028)
+  Institution: Comsats
+  Start Date: bahelors
+  End Date: LAhore
+  GPA: 3.5
+  Honors: Honors
+
+CERTIFICATIONS:
+  • sd - add (Jan 2024)
+  Issuer: fs
+  ID: fda
+  URL: https://www.example.com
+  Validity: 2025
+  Level: 1
+  • Ielts - english test (Jan 2025)
+  Issuer: ME
+  ID: 12345
+  URL: https://www.abc.com
+  Validity: 2025
+  Level: 1
+  • Writing - writing (Feb 2025)
+  Issuer: haris
+  ID: 456
+  URL: https://www.abc.com
+  Validity: 2028
+  Level: 5
+
+INTERNSHIPS:
+  • Ngo - Government (25 March)
+  Company: Intel
+  Duration: 2026
+  Location: LAhore
+  Paid: Yes
+  Supervisor: Ahamd
+  Certificate Received: Yes
+
+JOBS:
+  • Software - Engineer (2028)
+  Company: Intech
+  Location: Lahore
+  Duration: 2025
+  Type: Permanent
+  Technologies: Intellij, NordVPn
+  Team Size: 5
+
+LANGUAGES:
+  • Urdu - Fluent
+
+SOFT SKILLS:
+  • 
+Skill: Speaking
+Example: Speak
+  • 
+Skill: Writing
+Example: write
+  • 
+Skill: English Speaking
+Example: Ielts
+
+ACHIEVEMENTS:
+  • Running - Marathn (25 March)
+  Category: Runner
+  Issuer: me
+  Location: Lahore
+  Link: abc
+
+REFERENCES:
+  • Abdul wahab (none) - 123
+
+PROJECTS:
+  • 
+Project Title: TrackU
+Description: OOP Project
+Technologies Used: Intellij
+Duration: 2025
+Role: NOne
+Link: abc
+
