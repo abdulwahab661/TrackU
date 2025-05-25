@@ -1,0 +1,75 @@
+===========================================
+                FINAL RESUME               
+===========================================
+
+GENERAL INFORMATION:
+Name: Abdul Wahab
+Email: a.wahab2508@gmail.com
+Phone: 0300-9649813
+Address: abc
+LinkedIn: a.wahab@linkedin.com
+GitHub: a.wahab@github.com
+Website: a.wahab
+
+
+EDUCATION:
+  • Computer Science - Bachelors (2024-2028)
+  Institution: COMSATS University
+  Start Date: 10 Sep, 2024
+  End Date: 10 Jul, 2028
+  GPA: 3.8
+  Honors: Honors
+
+CERTIFICATIONS:
+  • Quiz Winner - Quiz (Feb 2025)
+  Issuer: Me
+  ID: abc
+  URL: https://abc
+  Validity: 2026
+  Level: Beginner
+
+INTERNSHIPS:
+  • CTS - Developer (25 March)
+  Company: Intel
+  Duration: 2026
+  Location: Lahore
+  Paid: Yes
+  Supervisor: Haris
+  Certificate Received: Yes
+
+JOBS:
+  • Developer - Software Developer (25 Aug)
+  Company: Intel
+  Location: Lahore
+  Duration: 2026
+  Type: Permanent
+  Technologies: MIT, IntelliJ
+  Team Size: 5
+
+LANGUAGES:
+  • English - Beginner
+
+SOFT SKILLS:
+  • 
+Skill: Public Speaking
+Example: Speaking
+
+ACHIEVEMENTS:
+  • Marathon - Runner (25 June)
+  Category: Running
+  Issuer: Me
+  Location: Islamabad
+  Link: abc
+
+REFERENCES:
+  • Sir Shahid (Teacher) - 0328-1245568
+
+PROJECTS:
+  • 
+Project Title: TrackU
+Description: OOP Project
+Technologies Used: IntelliJ
+Duration: 2025
+Role: Developer
+Link: N/A
+
