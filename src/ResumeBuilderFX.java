@@ -68,7 +68,7 @@ public class ResumeBuilderFX extends Application {
 
         box.getChildren().addAll(
                 new Label("Enter General Info:"),
-                nameField, emailField, phoneField,
+                nameField, emailField, phoneField,addressField,linkedInField,gitField,websiteField,
                 saveButton
         );
 
