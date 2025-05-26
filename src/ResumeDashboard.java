@@ -3,6 +3,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class ResumeDashboard extends Application {
 
@@ -14,22 +17,27 @@ public class ResumeDashboard extends Application {
 
         TabPane tabPane = new TabPane();
 
-        Tab generalInfoTab = new Tab("General Info", GeneralInfoPane.getPane(resume));
-        Tab educationTab = new Tab("Education", EducationPane.getPane(resume));
-        Tab certificationsTab = new Tab("Certifications", CertificationPane.getPane(resume));
-        Tab internshipsTab = new Tab("Internships", InternshipPane.getPane(resume));
-        Tab jobsTab = new Tab("Jobs", JobPane.getPane(resume));
-        Tab languagesTab = new Tab("Languages", LanguagePane.getPane(resume));
-        Tab softSkillsTab = new Tab("Soft Skills", SoftSkillPane.getPane(resume));
-        Tab achievementsTab = new Tab("Achievements", AchievementPane.getPane(resume));
-        Tab referencesTab = new Tab("References", ReferencePane.getPane(resume));
-        Tab projectsTab = new Tab("Projects", ProjectPane.getPane(resume));
-        Tab previewTab = new Tab("Resume Preview", ResumePreviewPane.getPane(resume));
+        tabPane.getTabs().add(new Tab("General Info", GeneralInfoPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Education", EducationPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Certifications", CertificationPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Internships", InternshipPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Jobs", JobPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Languages", LanguagePane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Soft Skills", SoftSkillPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Achievements", AchievementPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("References", ReferencePane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Projects", ProjectPane.getPane(resume)));
+        tabPane.getTabs().add(new Tab("Resume Preview", ResumePreviewPane.getPane(resume)));
+        Tab customBuilderTab = new Tab("Custom Resume Builder");
+        customBuilderTab.setContent(new Label("Click to load...")); // Placeholder
+        customBuilderTab.setOnSelectionChanged(event -> {
+            if (customBuilderTab.isSelected()) {
+                customBuilderTab.setContent(CustomResumeBuilderPane.getPane(resume));
+            }
+        });
 
-        tabPane.getTabs().addAll(
-                generalInfoTab, educationTab, certificationsTab, internshipsTab, jobsTab,
-                languagesTab, softSkillsTab, achievementsTab, referencesTab, projectsTab, previewTab
-        );
+        tabPane.getTabs().add(customBuilderTab);
+
 
         tabPane.getTabs().forEach(tab -> tab.setClosable(false));
 
@@ -42,4 +50,3 @@ public class ResumeDashboard extends Application {
         launch(args);
     }
 }
-

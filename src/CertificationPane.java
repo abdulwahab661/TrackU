@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -36,6 +35,15 @@ public class CertificationPane {
             );
             resume.addCertificate(cert);
             status.setText("Certificate Added Successfully");
+            title.clear();
+            description.clear();
+            date.clear();
+            issuer.clear();
+            certId.clear();
+            url.clear();
+            validity.clear();
+            level.clear();
+
         });
 
         box.getChildren().addAll(

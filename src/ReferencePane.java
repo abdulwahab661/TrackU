@@ -19,6 +19,10 @@ public class ReferencePane {
         Reference ref = new Reference(name.getText(), designation.getText(), contact.getText());
         resume.addReference(ref);
         status.setText("Reference Added Successfully");
+        name.clear();
+        designation.clear();
+        contact.clear();
+
     });
 
     box.getChildren().addAll(

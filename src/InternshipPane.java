@@ -30,6 +30,12 @@ public class InternshipPane {
         );
         resume.addInternship(i);
         status.setText("Internship Added Successfully");
+        title.clear(); description.clear(); date.clear();
+        company.clear();
+        duration.clear(); location.clear(); supervisor.clear();
+        paidCheck.setSelected(false);
+        certCheck.setSelected(false);
+
     });
 
     box.getChildren().addAll(

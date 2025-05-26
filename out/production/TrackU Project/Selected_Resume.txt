@@ -1,0 +1,40 @@
+===========================================
+            CUSTOM RESUME OUTPUT           
+===========================================
+
+GENERAL INFORMATION:
+Not Provided
+
+EDUCATION:
+  None listed.
+
+JOBS:
+  • hj - hh (hhj)
+  Company: hbhj
+  Location: bj
+  Duration: hjhjj
+  Type: jbj
+  Technologies: hjj
+  Team Size: 5
+
+INTERNSHIPS:
+  • ui - hggg (jjh)
+  Company: hhj
+  Duration: hgju
+  Location: jbh
+  Paid: Yes
+  Supervisor: hh
+  Certificate Received: Yes
+
+LANGUAGES:
+  • english - fluent
+  • spanish - fluent
+
+SOFT SKILLS:
+  • 
+Skill: speaking
+Example: speak
+  • 
+Skill: speaking
+Example: speak
+

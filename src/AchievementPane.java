@@ -31,6 +31,10 @@ public class AchievementPane {
         );
         resume.addAchievement(a);
         status.setText("Achievement Added Successfully");
+        title.clear(); description.clear(); date.clear();
+        category.clear();
+        issuer.clear(); location.clear(); link.clear();
+
     });
 
     box.getChildren().addAll(

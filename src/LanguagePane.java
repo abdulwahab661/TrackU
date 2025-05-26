@@ -25,6 +25,8 @@ public class LanguagePane {
         );
         resume.addLanguage(lang);
         status.setText("Language Added Successfully");
+        name.clear();
+        proficiency.clear();
     });
 
     box.getChildren().addAll(

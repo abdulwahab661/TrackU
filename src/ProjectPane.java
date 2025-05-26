@@ -18,16 +18,21 @@ public class ProjectPane {
     Button addBtn = new Button("Add Project");
     Label status = new Label();
 
-    addBtn.setOnAction(e -> {
-        Project p = new Project(
-                title.getText(), description.getText(), technologies.getText(),
-                duration.getText(), role.getText(), link.getText()
-        );
-        resume.addProject(p);
-        status.setText("Project Added Successfully");
-    });
+        addBtn.setOnAction(e -> {
+            Project p = new Project(
+                    title.getText(), description.getText(),
+                    technologies.getText(), duration.getText(),
+                    role.getText(), link.getText()
+            );
+            resume.addProject(p);
 
-    box.getChildren().addAll(
+            // Clear fields
+            title.clear(); description.clear(); technologies.clear();
+            duration.clear(); role.clear(); link.clear();
+        });
+
+
+        box.getChildren().addAll(
             new Label("Project Title"), title,
             new Label("Description"), description,
             new Label("Technologies Used"), technologies,

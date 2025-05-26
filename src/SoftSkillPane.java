@@ -18,6 +18,9 @@ public class SoftSkillPane {
         SoftSkill s = new SoftSkill(name.getText(), example.getText());
         resume.addSoftSkill(s);
         status.setText("Soft Skill Added Successfully");
+        name.clear();
+        example.clear();
+
     });
 
     box.getChildren().addAll(

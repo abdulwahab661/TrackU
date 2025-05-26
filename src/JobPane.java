@@ -1,62 +1,106 @@
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 public class JobPane {
 
     public static Node getPane(Resume resume) {
+        GridPane grid = new GridPane();
+        grid.setHgap(12);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20));
 
-        VBox box = new VBox(10); box.setPadding(new Insets(20));
+        // === Input Fields ===
+        TextField titleField = new TextField();
+        titleField.setPromptText("e.g., Software Engineer");
 
-    TextField title = new TextField();
-    TextField description = new TextField();
-    TextField date = new TextField();
-    TextField company = new TextField();
-    TextField location = new TextField();
-    TextField duration = new TextField();
-    TextField employmentType = new TextField();
-    TextField techs = new TextField();
-    TextField teamSize = new TextField();
-    Button addBtn = new Button("Add Job");
-    Label status = new Label();
+        TextField descField = new TextField();
+        descField.setPromptText("Job Description");
 
-    addBtn.setOnAction(e -> {
-        try {
-            int size = Integer.parseInt(teamSize.getText());
+        DatePicker datePicker = new DatePicker();
+
+        TextField companyField = new TextField();
+        companyField.setPromptText("e.g., Google");
+
+        TextField locationField = new TextField();
+        locationField.setPromptText("e.g., Mountain View, CA");
+
+        TextField durationField = new TextField();
+        durationField.setPromptText("e.g., 6 months");
+
+        TextField employmentTypeField = new TextField();
+        employmentTypeField.setPromptText("e.g., Full-time, Internship");
+
+        TextField techsField = new TextField();
+        techsField.setPromptText("Comma-separated e.g., Java, Spring, MySQL");
+
+        TextField teamSizeField = new TextField();
+        teamSizeField.setPromptText("e.g., 4");
+
+        Button addBtn = new Button("Add Job");
+        Label statusLabel = new Label();
+
+        // === Layout ===
+        grid.add(new Label("Title:"), 0, 0); grid.add(titleField, 1, 0);
+        grid.add(new Label("Description:"), 0, 1); grid.add(descField, 1, 1);
+        grid.add(new Label("Date:"), 0, 2); grid.add(datePicker, 1, 2);
+        grid.add(new Label("Company:"), 0, 3); grid.add(companyField, 1, 3);
+        grid.add(new Label("Location:"), 0, 4); grid.add(locationField, 1, 4);
+        grid.add(new Label("Duration:"), 0, 5); grid.add(durationField, 1, 5);
+        grid.add(new Label("Employment Type:"), 0, 6); grid.add(employmentTypeField, 1, 6);
+        grid.add(new Label("Technologies (comma-separated):"), 0, 7); grid.add(techsField, 1, 7);
+        grid.add(new Label("Team Size:"), 0, 8); grid.add(teamSizeField, 1, 8);
+        grid.add(addBtn, 1, 9);
+        grid.add(statusLabel, 1, 10);
+
+        // === Button Logic ===
+        addBtn.setOnAction(e -> {
+            String teamInput = teamSizeField.getText().trim();
+            int teamSize;
+            try {
+                teamSize = Integer.parseInt(teamInput);
+                if (teamSize < 1) throw new NumberFormatException();
+            } catch (NumberFormatException ex) {
+                statusLabel.setText("❌ Invalid team size. Must be a positive integer.");
+                return;
+            }
+
+            if (datePicker.getValue() == null) {
+                statusLabel.setText("❌ Please select a valid date.");
+                return;
+            }
+
+            LocalDate date = datePicker.getValue();
+            List<String> technologies = Arrays.asList(techsField.getText().split("\\s*,\\s*"));
+
             Job job = new Job(
-                    title.getText(), description.getText(), date.getText(),
-                    company.getText(), location.getText(), duration.getText(),
-                    employmentType.getText(),
-                    Arrays.asList(techs.getText().split("\\s*,\\s*")),
-                    size
+                    titleField.getText(),
+                    descField.getText(),
+                    date.toString(),
+                    companyField.getText(),
+                    locationField.getText(),
+                    durationField.getText(),
+                    employmentTypeField.getText(),
+                    technologies,
+                    teamSize
             );
+
             resume.addJob(job);
-            status.setText("Job Added Successfully");
-        } catch (NumberFormatException ex) {
-            status.setText("Invalid team size (must be an integer)");
-        }
-    });
+            statusLabel.setText("✅ Job added successfully!");
 
-    box.getChildren().addAll(
-            new Label("Title"), title,
-            new Label("Description"), description,
-            new Label("Date"), date,
-            new Label("Company Name"), company,
-            new Label("Location"), location,
-            new Label("Duration"), duration,
-            new Label("Employment Type"), employmentType,
-            new Label("Technologies (comma-separated)"), techs,
-            new Label("Team Size"), teamSize,
-            addBtn, status
-    );
+            // Clear all fields
+            titleField.clear(); descField.clear(); companyField.clear(); locationField.clear();
+            durationField.clear(); employmentTypeField.clear(); techsField.clear(); teamSizeField.clear();
+            datePicker.setValue(null);
+        });
 
-    return new ScrollPane(box);
+        VBox wrapper = new VBox(10, grid);
+        wrapper.setPadding(new Insets(10));
+        return new ScrollPane(wrapper);
+    }
 }
-
-}
-
