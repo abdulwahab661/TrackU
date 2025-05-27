@@ -1,20 +1,23 @@
+
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
 
-public class ResumeDashboard extends Application {
+public class ResumeDashboard extends Application { private static Person currentUser;
 
-    private Resume resume = new Resume();
+    public static void launchWithUser(Person user) {
+        currentUser = user;
+        launch();
+    }
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("TrackU - Resume Dashboard");
 
+        Resume resume = currentUser.getResume();
         TabPane tabPane = new TabPane();
 
         tabPane.getTabs().add(new Tab("General Info", GeneralInfoPane.getPane(resume)));
@@ -28,25 +31,27 @@ public class ResumeDashboard extends Application {
         tabPane.getTabs().add(new Tab("References", ReferencePane.getPane(resume)));
         tabPane.getTabs().add(new Tab("Projects", ProjectPane.getPane(resume)));
         tabPane.getTabs().add(new Tab("Resume Preview", ResumePreviewPane.getPane(resume)));
-        Tab customBuilderTab = new Tab("Custom Resume Builder");
-        customBuilderTab.setContent(new Label("Click to load...")); // Placeholder
-        customBuilderTab.setOnSelectionChanged(event -> {
-            if (customBuilderTab.isSelected()) {
-                customBuilderTab.setContent(CustomResumeBuilderPane.getPane(resume));
+
+        Tab customTab = new Tab("Custom Resume Builder");
+        customTab.setContent(new Label("Click to load..."));
+        customTab.setOnSelectionChanged(e -> {
+            if (customTab.isSelected()) {
+                customTab.setContent(CustomResumeBuilderPane.getPane(resume));
             }
         });
+        tabPane.getTabs().add(customTab);
 
-        tabPane.getTabs().add(customBuilderTab);
+        tabPane.getTabs().forEach(t -> t.setClosable(false));
 
+        Button saveBtn = new Button("Save Resume");
+        saveBtn.setOnAction(e -> {
+            UserManager.savePerson(currentUser);
+        });
 
-        tabPane.getTabs().forEach(tab -> tab.setClosable(false));
-
-        Scene scene = new Scene(tabPane, 1000, 700);
+        VBox root = new VBox(tabPane, saveBtn);
+        Scene scene = new Scene(root, 1000, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
