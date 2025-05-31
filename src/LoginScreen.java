@@ -22,8 +22,8 @@ public class LoginScreen extends Application {
         login.setOnAction(e -> {
             Person user = UserManager.login(username.getText(), password.getText());
             if (user != null) {
-                ResumeDashboard.launchWithUser(user);
-                stage.close();
+                ResumeDashboard.launchWithUser(user,stage);
+
             } else {
                 status.setText("Login failed: Invalid credentials");
             }
