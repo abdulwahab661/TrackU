@@ -17,7 +17,7 @@ public class CustomResumeState {
         selectedItems.clear();
     }
 
-
+    // ✅ This is the only export method you need
     public static void exportToFile(String filename, Resume resume) {
         StringBuilder sb = new StringBuilder();
         sb.append("=== CUSTOM RESUME OUTPUT ===\n\n");

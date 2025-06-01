@@ -13,6 +13,8 @@ public class ResumeDashboard extends Application {
         currentUser = user;
         Resume resume = currentUser.getResume();
 
+        primaryStage.setTitle("TrackU - Resume Dashboard");
+
         TabPane tabPane = new TabPane();
 
         tabPane.getTabs().add(new Tab("General Info", GeneralInfoPane.getPane(resume)));
@@ -26,7 +28,6 @@ public class ResumeDashboard extends Application {
         tabPane.getTabs().add(new Tab("References", ReferencePane.getPane(resume)));
         tabPane.getTabs().add(new Tab("Projects", ProjectPane.getPane(resume)));
         tabPane.getTabs().add(new Tab("Resume Preview", ResumePreviewPane.getPane(resume)));
-
 
         // Lazy-load custom builder when selected
         Tab customBuilderTab = new Tab("Custom Resume Builder");
@@ -53,8 +54,7 @@ public class ResumeDashboard extends Application {
         VBox root = new VBox(tabPane, saveBtn);
         Scene scene = new Scene(root, 1000, 700);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("TrackU - Resume Dashboard");
-
+        primaryStage.show();
     }
 
     // Only used if you run ResumeDashboard directly

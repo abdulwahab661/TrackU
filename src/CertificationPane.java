@@ -95,6 +95,7 @@ public class CertificationPane {
             resume.addCertificate(cert);
             statusLabel.setText("✅ Certification added successfully!");
 
+
             // Clear fields
             titleField.clear(); descField.clear(); issuerField.clear(); certIdField.clear();
             certURLField.clear(); validityField.clear(); datePicker.setValue(null);

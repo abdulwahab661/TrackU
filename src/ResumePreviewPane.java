@@ -1,4 +1,4 @@
-
+// ResumePreviewPane.java – Updated to support full/custom preview
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -55,7 +55,7 @@ public class ResumePreviewPane {
         sb.append("=== FULL RESUME ===\n\n");
         sb.append(resume.getGeneralInfo() != null ? resume.getGeneralInfo().toString() + "\n" : "No general info\n");
         sb.append("\n=== EDUCATION ===\n");
-        for (var edu : resume.getEducationList()) sb.append(edu).append("\n");
+        for (var edu : resume.getEducationList()) sb.append(edu.toString()).append("\n");
 
         sb.append("\n=== CERTIFICATIONS ===\n");
         for (var c : resume.getCertificates()) sb.append(c).append("\n");
@@ -87,7 +87,7 @@ public class ResumePreviewPane {
             sb.append("  None listed.\n\n");
         } else {
             for (var edu : resume.getEducationList()) {
-                sb.append("  • ").append(edu).append("\n");
+                sb.append("  • ").append(edu.toString()).append("\n");
             }
         }
         sb.append("\n");
